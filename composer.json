@@ -1,0 +1,27 @@
+{
+  "name": "eventhomes/laravel-apicontroller",
+  "description": "Simplified api controller using fractal, inspired by Jeffrey Way",
+  "keywords": [
+    "laravel",
+    "apicontroller",
+    "fractal"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bill Richards",
+      "email": "roundedvision@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "illuminate/support": "~5.0",
+    "league/fractal": "~0.12"
+  },
+  "autoload": {
+    "psr-4": {
+      "EventHomes\\Api\\": "src/"
+    }
+  },
+  "minimum-stability": "stable"
+}
