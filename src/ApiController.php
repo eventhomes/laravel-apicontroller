@@ -2,7 +2,6 @@
 
 namespace EventHomes\Api;
 
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
@@ -11,7 +10,7 @@ use League\Fractal\Resource\Item;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\ArraySerializer;
 
-class ApiController extends BaseController {
+trait ApiController {
 
     /**
      * @var int
@@ -19,20 +18,9 @@ class ApiController extends BaseController {
     protected $statusCode = Response::HTTP_OK;
 
     /**
-     * @param Manager $fractal
-     * @param Request $request
-     *
+     * @var Manager
      */
-    public function __construct(Manager $fractal, Request $request)
-    {
-        $this->fractal = $fractal;
-        $this->fractal->setSerializer(new ArraySerializer());
-
-        if ($request->has('include'))
-        {
-            $this->fractal->parseIncludes($request->get('include'));
-        }
-    }
+    protected $fractal;
 
     /**
      * @return int
@@ -50,6 +38,47 @@ class ApiController extends BaseController {
     public function setStatusCode($statusCode)
     {
         $this->statusCode = $statusCode;
+
+        return $this;
+    }
+
+    /**
+     * @return Manager $fractal
+     */
+    public function getFractal()
+    {
+        if ( !property_exists($this, 'fractal'))
+        {
+            $this->fractal = new Manager;
+            $this->fractal->setSerializer(new ArraySerializer());
+        }
+
+        return $this->fractal;
+    }
+
+    /**
+     * @param Manager $fractal
+     *
+     * @return $this
+     */
+    public function setFractal(Manager $fractal)
+    {
+        $this->fractal = $fractal;
+
+        return $this;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return $this
+     */
+    public function parseIncludes(Request $request)
+    {
+        if ($request->has('include'))
+        {
+            $this->getFractal()->parseIncludes($request->get('include'));
+        }
 
         return $this;
     }
@@ -134,7 +163,7 @@ class ApiController extends BaseController {
     {
         return $this->respond([
             'error' => [
-                'message'     => $message,
+                'data'        => $message,
                 'status_code' => $this->getStatusCode()
             ]
         ]);
@@ -150,7 +179,7 @@ class ApiController extends BaseController {
     {
         $resource = new Item($item, $callback);
 
-        $rootScope = $this->fractal->createData($resource);
+        $rootScope = $this->getFractal()->createData($resource);
 
         return $this->respond($rootScope->toArray());
     }
@@ -172,7 +201,7 @@ class ApiController extends BaseController {
             $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
         }
 
-        $rootScope = $this->fractal->createData($resource);
+        $rootScope = $this->getFractal()->createData($resource);
 
         return $this->respond($rootScope->toArray());
     }
