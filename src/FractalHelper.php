@@ -45,16 +45,14 @@ trait FractalHelper {
     }
 
     /**
-     * @param Request $request
+     * @param null $includes
      *
      * @return $this
+     *
      */
-    public function parseIncludes(Request $request)
+    public function parseIncludes($includes = null)
     {
-        if ($request->has('include'))
-        {
-            $this->getFractal()->parseIncludes($request->get('include'));
-        }
+        $this->getFractal()->parseIncludes($includes);
 
         return $this;
     }
