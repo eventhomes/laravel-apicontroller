@@ -9,7 +9,7 @@ use League\Fractal\Resource\Item;
 use League\Fractal\Manager;
 use League\Fractal\Serializer\ArraySerializer;
 
-class FractalHelper {
+trait FractalHelper {
 
     use ApiController;
 
