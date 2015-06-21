@@ -1,9 +1,11 @@
 {
   "name": "eventhomes/laravel-apicontroller",
-  "description": "Simplified api controller using fractal, inspired by Jeffrey Way",
+  "description": "Simplified API controller using fractal, inspired by Jeffrey Way. Compatible with Laravel 5+ and Lumen 5+.",
   "keywords": [
     "laravel",
-    "apicontroller",
+    "lumen",
+    "api controller",
+    "api",
     "fractal"
   ],
   "license": "MIT",
