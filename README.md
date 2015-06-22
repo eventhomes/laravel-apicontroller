@@ -1,5 +1,5 @@
-# Laravel 5 Api Controller
-A A simple api controller helper, compatible with Lumen 5+ and Laravel 5+. The goal of this project is to make creating API projects simple.
+# Laravel 5 / Lumen 5 Api Controller
+A simple api controller helper, compatible with Lumen 5+ and Laravel 5+. The goal of this project is to make creating API projects simple.
 
 ## Installation
 ```composer require eventhomes/laravel-apicontroller```
@@ -31,6 +31,9 @@ $this->respondCreated();
 
 //500 error
 $this->respondServerError();
+
+//422 error
+$this->respondUnprocessable();
 
 //General error
 $this->respondWithError('message here');
