@@ -82,6 +82,26 @@ trait ApiController {
     }
 
     /**
+     * @param string $message
+     *
+     * @return mixed
+     */
+    public function respondUnauthorized($message = 'Unauthorized')
+    {
+        return $this->setStatusCode(Response::HTTP_UNAUTHORIZED)->respondWithError($message);
+    }
+
+    /**
+     * @param string $message
+     *
+     * @return mixed
+     */
+    public function respondForbidden($message = 'Forbidden')
+    {
+        return $this->setStatusCode(Response::HTTP_FORBIDDEN)->respondWithError($message);
+    }
+
+    /**
      * @param array $data
      *
      * @return mixed
